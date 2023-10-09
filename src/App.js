@@ -4,6 +4,7 @@ import { useState } from "react"
 
 function App() {
 
+  document.title = "หารค่าเหล้า"
   const [name, setName] = useState("")
   const [namelistcounter, setNamelistcounter] = useState(0)
   const [namelist, setNamelist] = useState([
