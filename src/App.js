@@ -43,7 +43,7 @@ function App() {
 
   // function addNameList(e){
   //   console.log(name)
-    
+
   //         setName("")
 
   //         setNamelist([
@@ -55,21 +55,21 @@ function App() {
   //         ])
   // }
 
-  function deleteNameItem(id){
-    
+  function deleteNameItem(id) {
+
     console.log(`DELETE NAME : ${id}`)
     setNamelist(namelist.filter(item => {
-      if(item.id != id){
+      if (item.id != id) {
         return item
       }
     }))
   }
 
-  function deleteMenuItem(id){
-    
+  function deleteMenuItem(id) {
+
     console.log(`DELETE MENU : ${id}`)
     setMenulist(menulist.filter(item => {
-      if(item.id != id){
+      if (item.id != id) {
         return item
       }
     }))
@@ -84,34 +84,34 @@ function App() {
 
   // }
 
-  
+
   const divide_member_add = (menu_id, member) => {
-    
+
     console.log(menu_id)
     console.log(member)
-    
+
     // let ts = menulist.map(item => item.id)
     // console.log(ts)
     let munu_pos = menulist.map(item => item.id).indexOf(menu_id)
     console.log(munu_pos)
-    
+
     menulist[munu_pos].divide_member.push(member)
-    
-    
+
+
   }
 
   const divide_member_delete = (menu_id, member) => {
-    
+
     console.log(menu_id)
     console.log(member)
-    
+
     let munu_pos = menulist.map(item => item.id).indexOf(menu_id)
     console.log(munu_pos)
-    
+
     menulist[munu_pos].divide_member = menulist[munu_pos].divide_member.filter(item => {
       console.log(item.id)
       console.log(member.id)
-      if(item.id != member.id){
+      if (item.id != member.id) {
         return item
       }
     })
@@ -136,29 +136,29 @@ function App() {
           Learn React
         </a>
       </header> */}
-      
+
       <div style={{
         marginTop: `50px`
       }}>
-        
-        <p>Name List</p>
+
+        <p>รายการชื่อ ผู้ร่วมอุดมการณ์</p>
 
 
-        <input placeholder="Name"
-        value={name}
-        onChange={e => {
-          // console.log(e.target.value)
-          setName(e.target.value)
-        }} />
+        <input placeholder="ชื่อคนที่จะหาร"
+          value={name}
+          onChange={e => {
+            // console.log(e.target.value)
+            setName(e.target.value)
+          }} />
 
         <button onClick={e => {
-          
+
           console.log(name)
           setName("")
-          if(name !== ""){
-            
-            
-            
+          if (name !== "") {
+
+
+
             setNamelist([
               ...namelist,
               {
@@ -171,7 +171,7 @@ function App() {
 
 
           }
-          
+
 
 
         }}>Add</button>
@@ -181,7 +181,7 @@ function App() {
         }}>TS</button>
 
       </div>
-      
+
 
       <div>
         {namelist.map((item) => {
@@ -196,90 +196,91 @@ function App() {
       </div>
 
 
-      
-      <div style={{marginTop: `30px`}}>
 
-        <p>Menu List</p>
+      <div style={{ marginTop: `30px` }}>
 
-        <input placeholder='menu'
-        value={menu}
-        onChange={e => {
+        <p>รายการของ ที่จะหาร</p>
 
-          setMenu(e.target.value)
-        }}
+        <input placeholder='ชื่อของที่จะหาร'
+          value={menu}
+          onChange={e => {
+
+            setMenu(e.target.value)
+          }}
         />
         <input placeholder='price'
-        value={menuprice}
-        type="number"
-        min="0"
-        onChange={e => {
-          // let value = e.target.value
-          // value = Math.min(value, 0)
-          // console.log(value)
-          setMenuprice(e.target.value)
-        }}
+          value={menuprice}
+          type="number"
+          min="0"
+          onChange={e => {
+            // let value = e.target.value
+            // value = Math.min(value, 0)
+            // console.log(value)
+            setMenuprice(e.target.value)
+          }}
         />
 
         <button
-        onClick={() => {
+          onClick={() => {
 
-          console.log(menu)
-          setMenu("")
-          if(menu !== ""){
-            setMenulist([...menulist,
-            {
-              id: menulistcounter + 1,
-              name: menu,
-              price: menuprice,
-              divide_member: [],
+            console.log(menu)
+            setMenu("")
+            setMenuprice(0)
+            if (menu !== "") {
+              setMenulist([...menulist,
+              {
+                id: menulistcounter + 1,
+                name: menu,
+                price: menuprice,
+                divide_member: [],
+              }
+              ])
+
+              setMenulistcounter(menulistcounter + 1)
+
             }
-            ])
 
-            setMenulistcounter(menulistcounter + 1)
-
-          }
-          
-        }}
+          }}
         >Add</button>
         <button onClick={() => {
           console.log(menulist)
         }}>TS</button>
 
-        
 
-        <div style={{marginTop: `15px`}}>
+
+        <div style={{ marginTop: `15px` }}>
           {menulist.map(item => {
             return (
               <div key={item.id}>{item.name} ราคา {item.price}&nbsp;
                 <button onClick={() => {
                   deleteMenuItem(item.id)
                 }}>Delete</button>
-                
+
                 {
                   namelist.map(item_name => {
                     console.log(item_name)
                     return (
                       <label
-                      key={`lb-${item.id}-${item_name.id}`}
+                        key={`lb-${item.id}-${item_name.id}`}
                       >
                         <input
-                        key={`${item.id}-${item_name.id}`}
-                        type="checkbox"
-                        onChange={e => {
-
-                          
-                          console.log(e.target.checked)
-                          
-                          let is_check = e.target.checked
-                          if(is_check){
-                            divide_member_add(item.id, item_name)
-                          }
-                          else{
-                            divide_member_delete(item.id, item_name)
-                          }
+                          key={`${item.id}-${item_name.id}`}
+                          type="checkbox"
+                          onChange={e => {
 
 
-                        }}
+                            console.log(e.target.checked)
+
+                            let is_check = e.target.checked
+                            if (is_check) {
+                              divide_member_add(item.id, item_name)
+                            }
+                            else {
+                              divide_member_delete(item.id, item_name)
+                            }
+
+
+                          }}
                         />
                         {item_name.name}
                       </label>
@@ -287,7 +288,7 @@ function App() {
                   })
                 }
 
-                
+
                 {/* <label>
                   <input type="checkbox"/>
                   Checkkk
@@ -307,108 +308,108 @@ function App() {
 
 
 
-      <div style={{marginTop: `30px`}}>
-          <button onClick={() => {
+      <div style={{ marginTop: `30px` }}>
+        <button onClick={() => {
 
-            console.log("HARNNN")
-            setSummary([])
-            setHarnalert(``)
+          console.log("HARNNN")
+          setSummary([])
+          setHarnalert(``)
 
-            let temp_summary = []
+          let temp_summary = []
 
-            namelist.map(item => {
-              let temp_member = {
-                id: item.id,
-                name: item.name,
-                expense: 0,
+          namelist.map(item => {
+            let temp_member = {
+              id: item.id,
+              name: item.name,
+              expense: 0,
+            }
+
+            temp_summary.push(temp_member)
+          })
+
+          console.log(temp_summary)
+
+
+          let is_fail = false
+          for (let i = 0; i < menulist.length; i++) {
+
+            let item_menu = menulist[i]
+            let number_divide = item_menu.divide_member.length
+            if (number_divide == 0) {
+              is_fail = true
+              break
+            }
+
+            console.log(`number_divide : ${number_divide}`)
+            let temp_expense = item_menu.price / number_divide
+
+            console.log(`item_menu name : ${item_menu.name}`)
+            console.log(`temp_expense : ${temp_expense}`)
+
+            temp_summary.map(mem_sum => {
+
+
+              let idOfMember = item_menu.divide_member.map(mem => mem.id).indexOf(mem_sum.id)
+
+              if (idOfMember != -1) {
+                mem_sum.expense += temp_expense
               }
 
-              temp_summary.push(temp_member)
+              return mem_sum
+
             })
-            
+
+
+
+
             console.log(temp_summary)
 
 
-            let is_fail = false
-            for(let i=0;i < menulist.length;i++){
-
-              let item_menu = menulist[i]
-              let number_divide = item_menu.divide_member.length
-              if(number_divide == 0){
-                is_fail = true
-                break
-              }
-
-              console.log(`number_divide : ${number_divide}`)
-              let temp_expense = item_menu.price / number_divide
-
-              console.log(`item_menu name : ${item_menu.name}`)
-              console.log(`temp_expense : ${temp_expense}`)
-
-              temp_summary.map(mem_sum => {
 
 
-                let idOfMember = item_menu.divide_member.map(mem => mem.id).indexOf(mem_sum.id)
 
-                if(idOfMember != -1){
-                  mem_sum.expense += temp_expense
-                }
-
-                return mem_sum
-
-              })
+          }
 
 
-              
-              
-              console.log(temp_summary)
-              
 
-              
-              
+          // show summary
+          if (!is_fail) {
+            setSummary(temp_summary)
+          }
+          else {
 
-            }
+            console.log("มีบางเมนูไม่มีคนหาร")
+            setHarnalert(`มีบางเมนูไม่มีคนหาร`)
 
-
-            
-            // show summary
-            if(!is_fail){
-              setSummary(temp_summary)
-            }
-            else{
-
-              console.log("มีบางเมนูไม่มีคนหาร")
-              setHarnalert(`มีบางเมนูไม่มีคนหาร`)
-
-            }
+          }
 
 
-            // menulist.map(item => {
-            //   let number_divide = item.divide_member.length
-            //   console.log(`number_divide : ${number_divide}`)
-            //   let temp_expense = item.price / number_divide
-            // })
+          // menulist.map(item => {
+          //   let number_divide = item.divide_member.length
+          //   console.log(`number_divide : ${number_divide}`)
+          //   let temp_expense = item.price / number_divide
+          // })
 
 
-          }}>HARN</button>
-          
+        }}>HARN</button>
 
-          <p style={{color: `red`}}>{harnalert}</p>
+
+        <p style={{ color: `red` }}>{harnalert}</p>
       </div>
 
 
-      <div style={{marginTop: `30px`}}>
+      <div style={{ marginTop: `30px` }}>
 
-          {summary.map(item => {
-            return (
-              <div key={`sum-${item.id}`}>{item.name} จ่าย {item.expense}</div>
-            )
-          })}
+        {summary.map(item => {
+          return (
+            <div key={`sum-${item.id}`}>{item.name} จ่าย {item.expense}</div>
+          )
+        })}
 
       </div>
-      
-      
-      
+
+
+
     </div>
   );
 }
