@@ -1,10 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function App() {
 
-  document.title = "หารค่าเหล้า"
+  // useEffect(() => {
+  //   document.title = "หารค่าเหล้า"
+  // })
+
+  
   const [name, setName] = useState("")
   const [namelistcounter, setNamelistcounter] = useState(0)
   const [namelist, setNamelist] = useState([
@@ -209,7 +213,7 @@ function App() {
             setMenu(e.target.value)
           }}
         />
-        <input placeholder='price'
+        <input placeholder='ราคา'
           value={menuprice}
           type="number"
           min="0"
